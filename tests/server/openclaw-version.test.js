@@ -1,6 +1,6 @@
 const childProcess = require("child_process");
 
-const { kAppDir } = require("../../lib/server/constants");
+const { kNpmPackageRoot } = require("../../lib/server/constants");
 const modulePath = require.resolve("../../lib/server/openclaw-version");
 const originalExec = childProcess.exec;
 const originalExecSync = childProcess.execSync;
@@ -55,13 +55,11 @@ describe("server/openclaw-version", () => {
 
   it("returns update availability when latest version is newer", async () => {
     const { service, execSyncMock } = createService();
-    execSyncMock
-      .mockReturnValueOnce("openclaw 1.2.3")
-      .mockReturnValueOnce(
-        JSON.stringify({
-          availability: { available: true, latestVersion: "1.3.0" },
-        }),
-      );
+    execSyncMock.mockReturnValueOnce("openclaw 1.2.3").mockReturnValueOnce(
+      JSON.stringify({
+        availability: { available: true, latestVersion: "1.3.0" },
+      }),
+    );
 
     const status = await service.getVersionStatus(false);
 
@@ -123,7 +121,7 @@ describe("server/openclaw-version", () => {
     expect(execMock).toHaveBeenCalledWith(
       "npm install --omit=dev --no-save --package-lock=false --prefer-online openclaw@latest",
       {
-        cwd: kAppDir,
+        cwd: kNpmPackageRoot,
         env: expect.objectContaining({
           npm_config_update_notifier: "false",
           npm_config_fund: "false",

@@ -53,7 +53,9 @@ describe("server/alphaclaw-version", () => {
     const httpsGetMock = createMockHttpsGet({
       "dist-tags": { latest: "99.0.0" },
     });
-    const { createAlphaclawVersionService } = loadVersionModule({ httpsGetMock });
+    const { createAlphaclawVersionService } = loadVersionModule({
+      httpsGetMock,
+    });
     const service = createAlphaclawVersionService();
 
     const first = await service.getVersionStatus(false);
@@ -115,7 +117,11 @@ describe("server/alphaclaw-version", () => {
 
   it("returns 500 when npm install fails", async () => {
     const execMock = vi.fn().mockImplementation((cmd, opts, callback) => {
-      callback(new Error("npm ERR! network timeout"), "", "npm ERR! network timeout");
+      callback(
+        new Error("npm ERR! network timeout"),
+        "",
+        "npm ERR! network timeout",
+      );
     });
     const { createAlphaclawVersionService } = loadVersionModule({ execMock });
     const service = createAlphaclawVersionService();
