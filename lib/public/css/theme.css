@@ -1,0 +1,49 @@
+:root {
+  --bg: #0a0e14;
+  --bg-sidebar: #0d1117;
+  --bg-content: #0a0e14;
+  --bg-hover: rgba(99, 235, 255, 0.05);
+  --bg-active: rgba(99, 235, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.06);
+  --text: #c9d1d9;
+  --text-muted: #6e7681;
+  --text-dim: #383d47;
+  --accent: #63ebff;
+  --accent-dim: rgba(99, 235, 255, 0.4);
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Subtle grid texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+::placeholder { color: var(--text-dim) !important; opacity: 1 !important; }
+::-webkit-input-placeholder { color: var(--text-dim) !important; }
+::-moz-placeholder { color: var(--text-dim) !important; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 3px; }
+
+/* Google scope picker toggle buttons */
+.scope-btn { background: rgba(255,255,255,0.03); color: var(--text-muted); border: 1px solid var(--border); transition: all 0.15s; }
+.scope-btn:hover { border-color: var(--text-dim); color: var(--text); }
+.scope-btn.active { background: var(--bg-active); color: var(--accent); border-color: var(--accent-dim); }
