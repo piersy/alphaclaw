@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: alphaclaw
+    runtime: node
+    buildCommand: npm install && npm run build:ui
+    startCommand: npm start
+    plan: free
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
